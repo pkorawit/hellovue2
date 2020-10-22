@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Hello Vue</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <div class="nav navbar-nav">
+            <a class="nav-item nav-link active" href="#">Hello Vue
+                 <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Home</a>
+        </div>
+    </nav>  
+    <div class="container">
+        <div id="app">
+            <h3>{{ message }}</h3>
+            <div class="card">
+                <img class="card-img-top" src="holder.js/100x180/" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">{{ firstname + ' ' + lastname }}</h4>
+                    <p class="card-text">{{ dob }}</p>
+                    <p class="card-text" v-if="showEmail">{{ email }}</p>
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="">Email</label>
+              <input type="text" v-model="email"
+                class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+              <small id="helpId" class="form-text text-muted">Help text</small>
+            </div>
+            <div class="form-group">
+              <button v-on:click="setShowEmail" type="button" class="btn btn-primary">Show Email</button>
+              <button v-on:click="setHideEmail" type="button" class="btn btn-warning">Hide Email</button>
+            </div>
+            <div class="form-group">
+              <label for="">New Hobby</label>
+              <input type="text" v-model="newHobby"
+                class="form-control" name="" id="" aria-describedby="helpId" placeholder="">
+              <small id="helpId" class="form-text text-muted">Help text</small>
+              <button @click="addNewHobby" type="button" class="btn btn-primary">Add</button>
+              <button @click="clearHobby" type="button" class="btn btn-danger">Clear</button>
+            </div>
+            <hobby-card v-for="(hobby, index) in hobbies" :hobbyindex="index" :hobby="hobby" @deleterequest="deleteHobby"></hobby-card>           
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(hobby, index) in hobbies">
+                        <td scope="row">{{ hobby.id }}</td>
+                        <td>{{ hobby.name }}</td>   
+                        <td><button @click="deleteHobby(index)" type="button" class="btn btn-danger">Delete</button></td>                         
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <template id="hobbyCard">
+            <div class="card text-white bg-info">
+              <img class="card-img-top" src="holder.js/100px180/" alt="">
+              <div class="card-body">
+                <h4 class="card-title">{{ hobby.id }} - {{ hobby.name }}</h4>
+                <h3 class="card-title">Count: {{ count }}</h3>
+                <p class="card-text">Desc</p>
+                <p class="card-text">
+                    <button @click="up" type="button" class="btn btn-primary">Up</button>
+                    <button @click="down" type="button" class="btn btn-warning">Down</button>
+                    <button @click="deleteHobby" type="button" class="btn btn-danger">Delete This</button>
+                </p>
+              </div>
+            </div>
+        </template>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
